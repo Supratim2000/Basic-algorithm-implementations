@@ -1,25 +1,26 @@
 #include<iostream>
 using namespace std;
+typedef long long ll;
 
-void swap(int* x,int* y)
+void swap(ll arr[],ll i,ll j)
 {
-    int temp=*x;
-    *x=*y;
-    *y=temp;
+    ll temp=arr[i];
+    arr[i]=arr[j];
+    arr[j]=temp;
 }
 
-//Iterative
-void bubbleSort(int arr[], int n)
+void sort(ll arr[],ll n)
 {
-    for(int i=0;i<n-1;i++)
+    for(ll i=0;i<n-1;i++)
     {
         bool isSorted=true;
-        for(int j=0;j<n-i-1;j++)
+        for(ll j=0;j<n-i-1;j++)
         {
             if(arr[j]>arr[j+1])
             {
-                isSorted=false;
-                swap(&arr[j],&arr[j+1]);
+                swap(arr,j,j+1);
+                if(isSorted)
+                    isSorted=false;
             }
         }
         if(isSorted)
@@ -27,41 +28,41 @@ void bubbleSort(int arr[], int n)
     }
 }
 
-/* Recursive
-void sortHelper(int arr[], int lastIndx)
+void recursiveSort(ll arr[],ll n)
 {
-    if(lastIndx==0)
+    if(n==1)
         return;
-    for(int i=0;i<lastIndx;i++)
+    bool isSorted=true;
+    for(ll i=0;i<n-1;i++)
     {
         if(arr[i]>arr[i+1])
-            swap(&arr[i],&arr[i+1]);
+        {
+            swap(arr,i,i+1);
+            if(isSorted)
+                isSorted=false;
+        }
     }
-    sortHelper(arr,lastIndx-1);
+    if(isSorted)
+        return;
+    recursiveSort(arr,n-1);
 }
-    
-void bubbleSort(int arr[], int n)
-{
-    sortHelper(arr,n-1);
-}
-*/
 
 int main()
 {
-    int n;
+    ll n;
     cout<<"Enter size of array: ";
     cin>>n;
+    ll arr[n];
     cout<<"Enter array elements: ";
-    int arr[n];
-    for(int i=0;i<n;i++)
+    for(ll i=0;i<n;i++)
         cin>>arr[i];
-    cout<<"Array elements before sorting: ";
-    for(int i=0;i<n;i++)
+    cout<<"Before sorting array: ";
+    for(ll i=0;i<n;i++)
         cout<<arr[i]<<" ";
     cout<<endl;
-    bubbleSort(arr,n);
-    cout<<"Array elements after sorting: ";
-    for(int i=0;i<n;i++)
+    sort(arr,n);
+    cout<<"After sorting array: ";
+    for(ll i=0;i<n;i++)
         cout<<arr[i]<<" ";
     cout<<endl;
 
